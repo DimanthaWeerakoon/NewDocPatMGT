@@ -2,7 +2,7 @@ package com.NewDocPatMGT.controllers;
 
 import com.NewDocPatMGT.models.DTO.LoginResponseDTO;
 import com.NewDocPatMGT.models.DTO.RegistrationDTO;
-import com.NewDocPatMGT.models.Entity.ApplicationUser;
+import com.NewDocPatMGT.models.Response.DoctorRegistrationResponse;
 import com.NewDocPatMGT.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +19,8 @@ public class DoctorController {
     }
 
     @PostMapping("/register")
-    public ApplicationUser registerUser(@RequestBody RegistrationDTO body) {
-        return doctorService.registerDoctor(body.getUsername(), body.getPassword(), body.getEmail(), body.getFirstName(), body.getLastName(), body.getMobile());
+    public DoctorRegistrationResponse registerUser(@RequestBody RegistrationDTO body) {
+        return doctorService.registerDoctor(body.getUsername(), body.getPassword(), body.getEmail(), body.getFirstName(), body.getLastName(), body.getMobile(), body.getPosition(), body.getSpecializedArea(), body.getLanguage(), body.getQualifications());
     }
 
     @PostMapping("/login")

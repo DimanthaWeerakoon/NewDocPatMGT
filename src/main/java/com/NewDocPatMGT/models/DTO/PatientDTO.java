@@ -12,4 +12,6 @@ public class PatientDTO {
     private String origin;
     private String userPhoto;
     private String records;
+
+
 }

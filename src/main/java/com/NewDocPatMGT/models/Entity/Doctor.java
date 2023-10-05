@@ -28,4 +28,10 @@ public class Doctor {
     @JoinColumn(name = "user_id")
     private ApplicationUser user;
 
+    public Doctor(String position, String specializedArea, String language, String qualifications) {
+        this.position = position;
+        this.specializedArea = specializedArea;
+        this.language = language;
+        this.qualifications = qualifications;
+    }
 }

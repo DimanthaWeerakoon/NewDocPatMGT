@@ -27,5 +27,9 @@ public class Patient {
     @JoinColumn(name = "user_id")
     private ApplicationUser user;
 
-
+    public Patient(String age, String gender, String origin) {
+        this.age = age;
+        this.gender = gender;
+        this.origin = origin;
+    }
 }

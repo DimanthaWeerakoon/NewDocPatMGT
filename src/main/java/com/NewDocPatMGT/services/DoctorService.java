@@ -2,7 +2,10 @@ package com.NewDocPatMGT.services;
 
 import com.NewDocPatMGT.models.DTO.LoginResponseDTO;
 import com.NewDocPatMGT.models.Entity.ApplicationUser;
+import com.NewDocPatMGT.models.Entity.Doctor;
 import com.NewDocPatMGT.models.Entity.Role;
+import com.NewDocPatMGT.models.Response.DoctorRegistrationResponse;
+import com.NewDocPatMGT.repository.DoctorRepository;
 import com.NewDocPatMGT.repository.RoleRepository;
 import com.NewDocPatMGT.repository.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,20 +24,22 @@ import java.util.Set;
 public class DoctorService {
 
     private final UserRepository userRepository;
+    private final DoctorRepository doctorRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final TokenService tokenService;
 
-    public DoctorService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenService tokenService) {
+    public DoctorService(UserRepository userRepository, DoctorRepository doctorRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenService tokenService) {
         this.userRepository = userRepository;
+        this.doctorRepository = doctorRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
     }
 
-    public ApplicationUser registerDoctor(String username, String password, String email, String firstName, String lastName, String mobile) {
+    public DoctorRegistrationResponse registerDoctor(String username, String password, String email, String firstName, String lastName, String mobile, String position, String specializedArea, String language, String qualifications) {
 
         String encodedPassword = passwordEncoder.encode(password);
         Role userRole = roleRepository.findByAuthority("DOCTOR").get();
@@ -42,8 +47,14 @@ public class DoctorService {
         Set<Role> authorities = new HashSet<>();
 
         authorities.add(userRole);
+        ApplicationUser user = userRepository.save(new ApplicationUser(0, username, encodedPassword, authorities, email, firstName, lastName, mobile));
+        Doctor doctor = doctorRepository.save(new Doctor(position, specializedArea, language, qualifications));
 
-        return userRepository.save(new ApplicationUser(0, username, encodedPassword, authorities, email, firstName, lastName, mobile));
+        DoctorRegistrationResponse response = new DoctorRegistrationResponse(user, doctor);
+        response.setUser(user);
+        response.setDoctor(doctor);
+
+        return response;
     }
 
     public LoginResponseDTO loginDoctor(String username, String password) {
