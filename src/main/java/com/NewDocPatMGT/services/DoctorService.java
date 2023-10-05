@@ -12,11 +12,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -66,6 +68,17 @@ public class DoctorService {
 
         } catch (AuthenticationException e) {
             return new LoginResponseDTO(null, "");
+        }
+    }
+
+    public void setDoctorAvailability(Long doctorId, boolean available) {
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
+        if (optionalDoctor.isPresent()) {
+            Doctor doctor = optionalDoctor.get();
+            doctor.setAvailable(available);
+            doctorRepository.save(doctor);
+        } else {
+            throw new UsernameNotFoundException("Doctor with ID " + doctorId + " not found.");
         }
     }
 

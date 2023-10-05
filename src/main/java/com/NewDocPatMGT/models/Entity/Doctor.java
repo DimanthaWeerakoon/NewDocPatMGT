@@ -18,7 +18,7 @@ public class Doctor {
     private String position;
     private String specializedArea;
     private String doctorPhoto;
-    private boolean status;
+    private boolean available;
     private String language;
     private String qualifications;
     private String tasks;

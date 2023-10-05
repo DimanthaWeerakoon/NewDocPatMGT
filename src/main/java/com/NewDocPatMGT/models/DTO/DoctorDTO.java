@@ -10,7 +10,6 @@ public class DoctorDTO {
     private String position;
     private String specializedArea;
     private String doctorPhoto;
-    private boolean status;
     private String language;
     private String qualifications;
     private String tasks;
