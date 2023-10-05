@@ -20,6 +20,7 @@ public class Doctor {
     private String doctorPhoto;
     private boolean available;
     private String language;
+    private String medium;
     private String qualifications;
     private String tasks;
     private double ratings;
@@ -33,5 +34,10 @@ public class Doctor {
         this.specializedArea = specializedArea;
         this.language = language;
         this.qualifications = qualifications;
+    }
+
+    public Doctor(String language, String medium) {
+        this.language = language;
+        this.medium = medium;
     }
 }

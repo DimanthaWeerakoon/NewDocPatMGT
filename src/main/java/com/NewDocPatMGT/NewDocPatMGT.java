@@ -26,7 +26,8 @@ public class NewDocPatMGT {
 		return args ->{
 			if(roleRepository.findByAuthority("ADMIN").isPresent()) return;
 			Role adminRole = roleRepository.save(new Role("ADMIN"));
-			roleRepository.save(new Role("USER"));
+			roleRepository.save(new Role("PATIENT"));
+			roleRepository.save(new Role("DOCTOR"));
 
 			Set<Role> roles = new HashSet<>();
 			roles.add(adminRole);

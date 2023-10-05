@@ -38,9 +38,19 @@ public class DoctorController {
         Boolean available = requestBody.get("available");
         try{
             doctorService.setDoctorAvailability(doctorId, available);
-            return ResponseEntity.ok("Doctor availability status updated successfully.");
+            return ResponseEntity.ok("Availability status updated successfully.");
         }catch (Exception e){
-            return ResponseEntity.ok("Doctor availability status update failed.");
+            return ResponseEntity.ok("Availability status update failed.");
+        }
+    }
+
+    @PutMapping("/{doctorId}/preference")
+    public ResponseEntity<String> setDoctorPreferences(@PathVariable Long doctorId, @RequestBody DoctorDTO doctorDTO){
+        try{
+            doctorService.setDoctorPreferences(doctorId, doctorDTO.getLanguage(), doctorDTO.getMedium());
+            return ResponseEntity.ok("Preferences changed successfully.");
+        }catch (Exception e){
+            return ResponseEntity.ok("Failed to change preferences");
         }
     }
 }

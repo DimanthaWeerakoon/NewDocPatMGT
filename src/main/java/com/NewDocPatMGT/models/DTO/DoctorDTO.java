@@ -11,6 +11,7 @@ public class DoctorDTO {
     private String specializedArea;
     private String doctorPhoto;
     private String language;
+    private String medium;
     private String qualifications;
     private String tasks;
     private double ratings;

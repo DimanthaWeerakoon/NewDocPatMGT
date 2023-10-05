@@ -82,4 +82,16 @@ public class DoctorService {
         }
     }
 
+    public void setDoctorPreferences(Long doctorId, String language, String medium) {
+        Optional<Doctor> optionalDoctor = doctorRepository.findById(doctorId);
+        if (optionalDoctor.isPresent()) {
+            Doctor doctor = optionalDoctor.get();
+            doctor.setLanguage(language);
+            doctor.setMedium(medium);
+            doctorRepository.save(doctor);
+        } else {
+            throw new UsernameNotFoundException("Doctor with ID " + doctorId + " not found.");
+        }
+    }
+
 }
