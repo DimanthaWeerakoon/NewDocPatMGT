@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -28,6 +31,9 @@ public class Doctor {
     @OneToOne
     @JoinColumn(name = "user_id")
     private ApplicationUser user;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<Appointment> appointments = new ArrayList<>();
 
     public Doctor(String position, String specializedArea, String language, String qualifications) {
         this.position = position;

@@ -59,6 +59,7 @@ public class SecurityConfiguration {
                     auth.requestMatchers("/admin/**").hasRole("ADMIN");
 //                    auth.requestMatchers("/patient/**").hasAnyRole("ADMIN", "PATIENT");
                     auth.requestMatchers("/doctor/{doctorId}/**").hasAnyRole("ADMIN", "DOCTOR");
+                    auth.requestMatchers("/patient/{patientId}/**").hasAnyRole("ADMIN", "PATIENT");
                     auth.anyRequest().authenticated();
                 });
 

@@ -1,10 +1,9 @@
 package com.NewDocPatMGT.controllers;
 
-import com.NewDocPatMGT.defaultResponse.DefaultResponse;
 import com.NewDocPatMGT.models.DTO.DoctorDTO;
-import com.NewDocPatMGT.models.DTO.LoginResponseDTO;
 import com.NewDocPatMGT.models.DTO.RegistrationDTO;
 import com.NewDocPatMGT.models.Response.DoctorRegistrationResponse;
+import com.NewDocPatMGT.models.Response.LoginResponse;
 import com.NewDocPatMGT.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,27 +28,27 @@ public class DoctorController {
     }
 
     @PostMapping("/login")
-    public LoginResponseDTO loginUser(@RequestBody RegistrationDTO body) {
+    public LoginResponse loginUser(@RequestBody RegistrationDTO body) {
         return doctorService.loginDoctor(body.getUsername(), body.getPassword());
     }
 
     @PutMapping("/{doctorId}/availability")
     public ResponseEntity<String> setDoctorAvailability(@PathVariable Long doctorId, @RequestBody Map<String, Boolean> requestBody) {
         Boolean available = requestBody.get("available");
-        try{
+        try {
             doctorService.setDoctorAvailability(doctorId, available);
             return ResponseEntity.ok("Availability status updated successfully.");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.ok("Availability status update failed.");
         }
     }
 
     @PutMapping("/{doctorId}/preference")
-    public ResponseEntity<String> setDoctorPreferences(@PathVariable Long doctorId, @RequestBody DoctorDTO doctorDTO){
-        try{
+    public ResponseEntity<String> setDoctorPreferences(@PathVariable Long doctorId, @RequestBody DoctorDTO doctorDTO) {
+        try {
             doctorService.setDoctorPreferences(doctorId, doctorDTO.getLanguage(), doctorDTO.getMedium());
             return ResponseEntity.ok("Preferences changed successfully.");
-        }catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.ok("Failed to change preferences");
         }
     }

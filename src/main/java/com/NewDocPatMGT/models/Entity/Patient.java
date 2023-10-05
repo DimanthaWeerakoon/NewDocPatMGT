@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Getter
@@ -26,6 +29,9 @@ public class Patient {
     @OneToOne
     @JoinColumn(name = "user_id")
     private ApplicationUser user;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments = new ArrayList<>();
 
     public Patient(String age, String gender, String origin) {
         this.age = age;

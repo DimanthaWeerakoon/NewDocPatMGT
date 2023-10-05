@@ -1,6 +1,6 @@
 package com.NewDocPatMGT.services;
 
-import com.NewDocPatMGT.models.DTO.LoginResponseDTO;
+import com.NewDocPatMGT.models.Response.LoginResponse;
 import com.NewDocPatMGT.models.Entity.ApplicationUser;
 import com.NewDocPatMGT.models.Entity.Doctor;
 import com.NewDocPatMGT.models.Entity.Role;
@@ -59,15 +59,15 @@ public class DoctorService {
         return response;
     }
 
-    public LoginResponseDTO loginDoctor(String username, String password) {
+    public LoginResponse loginDoctor(String username, String password) {
 
         try {
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             String token = tokenService.generateJwt(auth);
-            return new LoginResponseDTO(userRepository.findByUsername(username).get(), token);
+            return new LoginResponse(userRepository.findByUsername(username).get(), token);
 
         } catch (AuthenticationException e) {
-            return new LoginResponseDTO(null, "");
+            return new LoginResponse(null, "");
         }
     }
 
