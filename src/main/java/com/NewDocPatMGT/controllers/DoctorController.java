@@ -1,7 +1,11 @@
 package com.NewDocPatMGT.controllers;
 
+import com.NewDocPatMGT.models.DTO.AppointmentDTO;
 import com.NewDocPatMGT.models.DTO.DoctorDTO;
+import com.NewDocPatMGT.models.DTO.DoctorQualificationsDTO;
 import com.NewDocPatMGT.models.DTO.RegistrationDTO;
+import com.NewDocPatMGT.models.Entity.Appointment;
+import com.NewDocPatMGT.models.Entity.DoctorQualification;
 import com.NewDocPatMGT.models.Response.DoctorRegistrationResponse;
 import com.NewDocPatMGT.models.Response.LoginResponse;
 import com.NewDocPatMGT.services.DoctorService;
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,7 +29,7 @@ public class DoctorController {
 
     @PostMapping("/register")
     public DoctorRegistrationResponse registerUser(@RequestBody RegistrationDTO body) {
-        return doctorService.registerDoctor(body.getUsername(), body.getPassword(), body.getEmail(), body.getFirstName(), body.getLastName(), body.getMobile(), body.getPosition(), body.getSpecializedArea(), body.getLanguage(), body.getQualifications());
+        return doctorService.registerDoctor(body.getUsername(), body.getPassword(), body.getEmail(), body.getFirstName(), body.getLastName(), body.getMobile(), body.getPosition(), body.getSpecializedArea(), body.getLanguage());
     }
 
     @PostMapping("/login")
@@ -52,4 +57,16 @@ public class DoctorController {
             return ResponseEntity.ok("Failed to change preferences");
         }
     }
+
+    @PostMapping("/{doctorId}/add-qualifications")
+    public ResponseEntity<String> setDoctorQualifications(@PathVariable Long doctorId, @RequestBody DoctorQualificationsDTO qualificationsDTO) {
+        Object result = doctorService.setDoctorQualifications(doctorId, qualificationsDTO.getDegree(), qualificationsDTO.getInstitute(), qualificationsDTO.getCompletionYear());
+
+        if (result instanceof DoctorQualification) {
+            return ResponseEntity.ok("Qualification added successfully!");
+        } else {
+            return ResponseEntity.ok("Qualification adding failed!");
+        }
+    }
+
 }

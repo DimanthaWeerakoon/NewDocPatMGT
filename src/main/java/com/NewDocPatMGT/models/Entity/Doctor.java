@@ -2,7 +2,6 @@ package com.NewDocPatMGT.models.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+//@NoArgsConstructor
 public class Doctor {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +23,6 @@ public class Doctor {
     private boolean available;
     private String language;
     private String medium;
-    private String qualifications;
     private String tasks;
     private double ratings;
 
@@ -32,18 +30,28 @@ public class Doctor {
     @JoinColumn(name = "user_id")
     private ApplicationUser user;
 
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
+    private List<DoctorQualification> qualifications = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL)
     private List<Appointment> appointments = new ArrayList<>();
 
-    public Doctor(String position, String specializedArea, String language, String qualifications) {
+    public Doctor(String position, String specializedArea, String language) {
         this.position = position;
         this.specializedArea = specializedArea;
         this.language = language;
-        this.qualifications = qualifications;
     }
 
     public Doctor(String language, String medium) {
         this.language = language;
         this.medium = medium;
+    }
+
+//    public Doctor(List<DoctorQualification> qualifications) {
+//        this.qualifications = qualifications;
+//    }
+
+    public Doctor() {
     }
 }

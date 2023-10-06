@@ -18,7 +18,6 @@ public class RegistrationDTO {
     private String position;
     private String specializedArea;
     private String language;
-    private String qualifications;
 
     public RegistrationDTO() {
         super();
