@@ -79,4 +79,17 @@ public class DoctorController {
             return ResponseEntity.ok("Qualification adding failed!");
         }
     }
+
+    @DeleteMapping("/{doctorId}/delete-qualifications/{qualificationId}")
+    public ResponseEntity<String> deleteDoctorQualification(
+            @PathVariable Long doctorId,
+            @PathVariable Long qualificationId
+    ) {
+        String result = doctorService.deleteDoctorQualification(doctorId, qualificationId);
+        if (result.equals("Qualification deleted successfully!")) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

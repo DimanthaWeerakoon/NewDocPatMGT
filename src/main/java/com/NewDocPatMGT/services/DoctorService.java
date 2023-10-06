@@ -132,6 +132,20 @@ public class DoctorService {
         }
     }
 
+    public String deleteDoctorQualification(Long doctorId, Long qualificationId) {
+        Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
+        if (doctor != null) {
+            DoctorQualification qualification = qualificationRepository.findById(qualificationId).orElse(null);
+            if (qualification != null) {
+                qualificationRepository.delete(qualification);
+                return "Qualification deleted successfully!";
+            } else {
+                return "Qualification not found";
+            }
+        } else {
+            return "Doctor not found";
+        }
+    }
 
 
 
