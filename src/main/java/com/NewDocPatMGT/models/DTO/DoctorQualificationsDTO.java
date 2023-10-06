@@ -12,6 +12,7 @@ public class DoctorQualificationsDTO {
     private String completionYear;
 
 
+
     public DoctorQualificationsDTO(String degree, String institute, String completionYear) {
         this.degree = degree;
         this.institute = institute;

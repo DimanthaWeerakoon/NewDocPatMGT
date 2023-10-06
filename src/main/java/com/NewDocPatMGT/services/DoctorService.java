@@ -112,4 +112,27 @@ public class DoctorService {
         }
     }
 
+    public Object editDoctorQualifications(Long doctorId, Long qualificationId, String degree, String institute, String completionYear) {
+        Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
+        if (doctor != null) {
+            DoctorQualification qualification = qualificationRepository.findById(qualificationId).orElse(null);
+            if (qualification != null) {
+                // Update the qualification properties
+                qualification.setDegree(degree);
+                qualification.setInstitute(institute);
+                qualification.setCompletionYear(completionYear);
+                // Save the updated qualification
+                qualificationRepository.save(qualification);
+                return qualification;
+            } else {
+                return "Qualification not found";
+            }
+        } else {
+            return "Doctor not found";
+        }
+    }
+
+
+
+
 }

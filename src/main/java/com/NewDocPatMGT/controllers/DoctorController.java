@@ -69,4 +69,14 @@ public class DoctorController {
         }
     }
 
+    @PutMapping("/{doctorId}/edit-qualifications/{qualificationId}")
+    public ResponseEntity<String> editDoctorQualifications(@PathVariable Long doctorId, @PathVariable Long qualificationId, @RequestBody DoctorQualificationsDTO qualificationsDTO) {
+        Object result = doctorService.editDoctorQualifications(doctorId, qualificationId,qualificationsDTO.getDegree(), qualificationsDTO.getInstitute(), qualificationsDTO.getCompletionYear());
+
+        if (result instanceof DoctorQualification) {
+            return ResponseEntity.ok("Qualification added successfully!");
+        } else {
+            return ResponseEntity.ok("Qualification adding failed!");
+        }
+    }
 }
