@@ -71,14 +71,14 @@ public class PatientService {
         }
     }
 
-    public Object appointmentBooking(Long patientId, Long doctorId, Date appointmentDate, Time appointmentTime, String appointmentMode) {
+    public Object appointmentBooking(Long patientId, Long doctorId, Date appointmentDate, Time appointmentTime, String appointmentMode, String patientSymptom) {
         Patient patient = patientRepository.findById(patientId).orElse(null);
         Doctor doctor = doctorRepository.findById(doctorId).orElse(null);
 
         if (patient != null && doctor != null) {
             if (doctor.isAvailable()) {
                 try {
-                    return appointmentRepository.save(new Appointment(patient, doctor, appointmentDate, appointmentTime, appointmentMode));
+                    return appointmentRepository.save(new Appointment(patient, doctor, appointmentDate, appointmentTime, appointmentMode, patientSymptom));
                 } catch (Exception e) {
                     return "Failed to create appointment.";
                 }

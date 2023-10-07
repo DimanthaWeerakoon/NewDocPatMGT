@@ -15,13 +15,15 @@ public class AppointmentDTO {
     private Date appointmentDate;
     private Time appointmentTime;
     private String appointmentMode;
+    private String patientSymptom;
     private Patient patient;
     private Long doctorId;
 
-    public AppointmentDTO(Long doctorId, Date appointmentDate, Time appointmentTime, String appointmentMode) {
+    public AppointmentDTO(Long doctorId, Date appointmentDate, Time appointmentTime, String appointmentMode, String patientSymptom) {
         this.doctorId = doctorId;
         this.appointmentDate = appointmentDate;
         this.appointmentTime = appointmentTime;
         this.appointmentMode = appointmentMode;
+        this.patientSymptom = patientSymptom;
     }
 }

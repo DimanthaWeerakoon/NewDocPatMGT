@@ -36,7 +36,7 @@ public class PatientController {
     @PostMapping("/{patientId}/appointment-booking")
     public ResponseEntity<String> appointmentBooking(@PathVariable Long patientId, @RequestBody AppointmentDTO appointmentDTO) {
         try {
-            Object result = patientService.appointmentBooking(patientId, appointmentDTO.getDoctorId(), appointmentDTO.getAppointmentDate(), appointmentDTO.getAppointmentTime(), appointmentDTO.getAppointmentMode());
+            Object result = patientService.appointmentBooking(patientId, appointmentDTO.getDoctorId(), appointmentDTO.getAppointmentDate(), appointmentDTO.getAppointmentTime(), appointmentDTO.getAppointmentMode(), appointmentDTO.getPatientSymptom());
 
             if (result instanceof String) {
                 return ResponseEntity.ok(result.toString());
